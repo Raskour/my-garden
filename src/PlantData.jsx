@@ -4,19 +4,23 @@ import { getPlantById } from './plantService';
 
 const PlantData = () => {
   const [plant, setPlant] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { plantId } = useParams();
 
   useEffect(() => {
     async function getPlant() {
       const result = await getPlantById(plantId);
-
+      setLoading(false);
       setPlant(result);
     }
     getPlant();
   }, [plantId]);
 
-  if (!plant) {
+  if (loading) {
     return <p>Loading...</p>;
+  }
+  if (!plant) {
+    return <p>Plant not found</p>;
   }
 
   return (

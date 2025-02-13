@@ -3,11 +3,21 @@ import plantData from './mockdata.json';
 import PlantCard from './PlantCard';
 import { getPlants } from './plantService';
 import { Link } from 'react-router-dom';
+import SearchPlant from './SearchPlant';
+import CategorySearch from './CategorySearch';
+import AddPlant from './AddPlant';
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState(plantData.plants);
   const [input, setInput] = useState('');
+  const [error, setError] = useState('');
+
+  const [newPlant, setNewPlant] = useState({
+    name: '',
+    category: '',
+    price: '',
+  });
 
   const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -25,6 +35,17 @@ const Home = () => {
 
   function handleSearch(e) {
     e.preventDefault();
+    // if (!input.trim()) {
+    //   //use .trim() to prevent spaces from being counted as input
+    //   alert('Type a plant name');
+    //   return;
+    // }
+
+    if (!input.trim()) {
+      setError('Type a plant name');
+
+      return;
+    }
 
     const result = data.filter((item) =>
       item.name.toLowerCase().includes(input.toLowerCase())
@@ -51,41 +72,67 @@ const Home = () => {
     }
   }
 
-  function handleAddPlant() {}
+  function handleNewPlant(e) {
+    const value = e.target.value;
+    const inputName = e.target.name;
+
+    setNewPlant((prevState) => {
+      return { ...prevState, [inputName]: value };
+    });
+  }
+
+  function handleAddPlant(e) {
+    e.preventDefault();
+    if (!newPlant.name || !newPlant.category || !newPlant.price) {
+      alert('Please type in all the required details');
+      return;
+    }
+    const plant = {
+      id: data.length + 1,
+      name: newPlant.name,
+      category: newPlant.category,
+      price: Number(newPlant.price),
+      images: [
+        'https://theplantdistro.com.au/cdn/shop/files/chamaedorea-seifrizii-bamboo-palm-400mm-outdoor-342.webp?v=1710830810&width=493',
+      ],
+    };
+    const newData = [plant, ...data];
+    setData(newData);
+    setFilteredData(newData);
+  }
 
   return (
     <div>
       <h1 className="heading">Ras Garden</h1>
-      <form className="searchbar" onSubmit={handleSearch}>
-        <label></label>
-        <input
-          placeholder="type a plant name"
-          value={input}
-          onChange={handleInput}
-        />
-
-        <button>Search</button>
-      </form>
-      <form className="category">
-        <label>Category</label>
-        <select value={selectedCategory} onChange={handleCategory}>
-          <option value="All">All Plants</option>
-          <option value="Indoor">Indoor Plants</option>
-          <option value="Outdoor">Outdoor Plants</option>
-          <option value="Medicinal">Medicinal Plants</option>
-          <option value="Herb">Herb</option>
-        </select>
-      </form>
-      <button className="add-plant" onClick={handleAddPlant}>
-        Add Plant
-      </button>
-      <div className="container">
-        {filteredData.map((plant) => (
-          <Link to={'/plants/' + plant.id} key={plant.id}>
-            <PlantCard image={plant.images[0]} title={plant.name} />
-          </Link>
-        ))}
-      </div>
+      <SearchPlant
+        input={input}
+        handleInput={handleInput}
+        handleSearch={handleSearch}
+      />
+      <AddPlant
+        handleAddPlant={handleAddPlant}
+        handleNewPlant={handleNewPlant}
+        newPlant={newPlant}
+      />
+      <CategorySearch
+        selectedCategory={selectedCategory}
+        handleCategory={handleCategory}
+      />
+      {error ? (
+        <p style={{ color: 'red' }}>{error}</p>
+      ) : (
+        <div className="container">
+          {filteredData.map((plant) => (
+            <Link to={'/plants/' + plant.id} key={plant.id}>
+              <PlantCard
+                image={plant.images[0]}
+                title={plant.name}
+                category={plant.category}
+              />
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

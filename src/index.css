@@ -41,7 +41,7 @@ img {
 }
 
 .category {
-  margin-left: 10px;
+  margin-left: 700px;
   margin-bottom: 20px;
 }
 
@@ -62,8 +62,4 @@ img {
 .data-container {
   display: flex;
   justify-content: center;
-}
-
-.add-plant {
-  margin-left: 700px;
 }
