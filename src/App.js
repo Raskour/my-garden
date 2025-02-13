@@ -1,3 +1,4 @@
+import AboutUs from './AboutUs';
 import './App.css';
 import Home from './Home';
 import PlantData from './PlantData';
@@ -20,6 +21,10 @@ const appRouter = createBrowserRouter([
       {
         path: '/plants/:plantId',
         element: <PlantData />,
+      },
+      {
+        path: '/about',
+        element: <AboutUs />,
       },
     ],
   },

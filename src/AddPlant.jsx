@@ -27,6 +27,15 @@ const AddPlant = ({
           ></input>
         </div>
         <div>
+          <label>Add image</label>
+          <input
+            type="text"
+            name="image"
+            value={newPlant.image}
+            onChange={handleNewPlant}
+          />
+        </div>
+        <div>
           <label>Category</label>
           <select
             name="category"

@@ -37,7 +37,12 @@ img {
   width: 100%;
 }
 
-.heading {
+.header {
+  display: flex;
+  justify-content: right;
+  margin-right: 80px;
+  margin-bottom: 60px;
+  gap: 20px;
 }
 
 .category {
@@ -62,4 +67,8 @@ img {
 .data-container {
   display: flex;
   justify-content: center;
+}
+
+.form {
+  margin-left: 20px;
 }

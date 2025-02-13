@@ -6,17 +6,20 @@ import { Link } from 'react-router-dom';
 import SearchPlant from './SearchPlant';
 import CategorySearch from './CategorySearch';
 import AddPlant from './AddPlant';
+import Header from './Header';
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState(plantData.plants);
   const [input, setInput] = useState('');
   const [error, setError] = useState('');
+  const [favCount, setFavCount] = useState(0);
 
   const [newPlant, setNewPlant] = useState({
     name: '',
     category: '',
     price: '',
+    image: '',
   });
 
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -92,18 +95,23 @@ const Home = () => {
       name: newPlant.name,
       category: newPlant.category,
       price: Number(newPlant.price),
-      images: [
-        'https://theplantdistro.com.au/cdn/shop/files/chamaedorea-seifrizii-bamboo-palm-400mm-outdoor-342.webp?v=1710830810&width=493',
-      ],
+      images: [newPlant.image],
     };
     const newData = [plant, ...data];
     setData(newData);
     setFilteredData(newData);
   }
 
+  function handleFav(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setFavCount((prevCount) => prevCount + 1);
+  }
+
   return (
     <div>
       <h1 className="heading">Ras Garden</h1>
+      <Header favCount={favCount} />
       <SearchPlant
         input={input}
         handleInput={handleInput}
@@ -129,6 +137,7 @@ const Home = () => {
                 title={plant.name}
                 category={plant.category}
               />
+              <button onClick={handleFav}>Add to fav</button>
             </Link>
           ))}
         </div>
