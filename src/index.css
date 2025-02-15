@@ -72,3 +72,8 @@ img {
 .form {
   margin-left: 20px;
 }
+
+.favPlant {
+  height: 400px;
+  width: 400px;
+}

@@ -6,7 +6,7 @@ const Header = ({ favCount }) => {
     <div className="header">
       <Link to={'/'}>Home</Link>
       <Link to={'/about'}>About Us</Link>
-      <span>Favourites({favCount})</span>
+      <Link to={'/fav'}>Favourites({favCount})</Link>
     </div>
   );
 };

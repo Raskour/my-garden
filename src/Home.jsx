@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import plantData from './mockdata.json';
 import PlantCard from './PlantCard';
 import { getPlants } from './plantService';
@@ -7,13 +7,13 @@ import SearchPlant from './SearchPlant';
 import CategorySearch from './CategorySearch';
 import AddPlant from './AddPlant';
 import Header from './Header';
+import { FavContext } from './favContex';
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState(plantData.plants);
   const [input, setInput] = useState('');
   const [error, setError] = useState('');
-  const [favCount, setFavCount] = useState(0);
 
   const [newPlant, setNewPlant] = useState({
     name: '',
@@ -24,6 +24,8 @@ const Home = () => {
 
   const [selectedCategory, setSelectedCategory] = useState('All');
 
+  const { favCount, setFavCount } = useContext(FavContext);
+  const { fav, setFav } = useContext(FavContext);
   useEffect(() => {
     async function getData() {
       const data = await getPlants();
@@ -102,10 +104,13 @@ const Home = () => {
     setFilteredData(newData);
   }
 
-  function handleFav(e) {
+  function handleFav(e, id) {
     e.preventDefault();
     e.stopPropagation();
+
     setFavCount((prevCount) => prevCount + 1);
+    const favPlant = data.find((plant) => plant.id === id);
+    setFav([...fav, favPlant]);
   }
 
   return (
@@ -137,7 +142,9 @@ const Home = () => {
                 title={plant.name}
                 category={plant.category}
               />
-              <button onClick={handleFav}>Add to fav</button>
+              <button onClick={(e) => handleFav(e, plant.id)}>
+                Add to fav
+              </button>
             </Link>
           ))}
         </div>
