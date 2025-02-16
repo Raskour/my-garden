@@ -73,7 +73,22 @@ img {
   margin-left: 20px;
 }
 
-.favPlant {
-  height: 400px;
-  width: 400px;
+.fav-plant {
+  height: 300px;
+  width: 300px;
+  border: 2px solid black;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.fav-plant img {
+  height: 80%;
+  width: 100%;
+}
+
+.fav-plant-list {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { FavContext } from '../favContex';
 
-const Header = ({ favCount }) => {
+const Header = () => {
+  const { favCount } = useContext(FavContext);
   return (
     <div className="header">
       <Link to={'/'}>Home</Link>

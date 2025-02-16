@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPlantById } from './plantService';
+import { getPlantById } from '../plantService';
 
 const PlantData = () => {
   const [plant, setPlant] = useState(null);

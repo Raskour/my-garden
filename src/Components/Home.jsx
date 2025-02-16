@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import plantData from './mockdata.json';
+import plantData from '../mockdata.json';
 import PlantCard from './PlantCard';
-import { getPlants } from './plantService';
+import { getPlants } from '../plantService';
 import { Link } from 'react-router-dom';
 import SearchPlant from './SearchPlant';
 import CategorySearch from './CategorySearch';
 import AddPlant from './AddPlant';
 import Header from './Header';
-import { FavContext } from './favContex';
+import { FavContext } from '../favContex';
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -24,7 +24,7 @@ const Home = () => {
 
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const { favCount, setFavCount } = useContext(FavContext);
+  const { setFavCount } = useContext(FavContext);
   const { fav, setFav } = useContext(FavContext);
   useEffect(() => {
     async function getData() {
@@ -116,7 +116,7 @@ const Home = () => {
   return (
     <div>
       <h1 className="heading">Ras Garden</h1>
-      <Header favCount={favCount} />
+
       <SearchPlant
         input={input}
         handleInput={handleInput}

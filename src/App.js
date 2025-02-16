@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import AboutUs from './AboutUs';
+import AboutUs from './Components/AboutUs';
 import './App.css';
-import Home from './Home';
-import PlantData from './PlantData';
+import Home from './Components/Home';
+import PlantData from './Components/PlantData';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { FavContext } from './favContex';
-import Favourites from './Favourites';
+import Favourites from './Components/Favourites';
+import Header from './Components/Header';
 
 function AppLayout() {
   const [favCount, setFavCount] = useState(0);
@@ -13,6 +14,7 @@ function AppLayout() {
   return (
     <FavContext.Provider value={{ favCount, setFavCount, fav, setFav }}>
       <div>
+        <Header />
         <Outlet />
       </div>
     </FavContext.Provider>

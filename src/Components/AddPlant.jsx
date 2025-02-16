@@ -1,11 +1,6 @@
 import React from 'react';
 
-const AddPlant = ({
-  handleNewPlant,
-  handleAddPlant,
-  newPlant,
-  handleFormCategory,
-}) => {
+const AddPlant = ({ handleNewPlant, handleAddPlant, newPlant }) => {
   return (
     <div>
       <form className="form" onSubmit={handleAddPlant}>
