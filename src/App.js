@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { FavContext } from './favContex';
 import Favourites from './Components/Favourites';
 import Header from './Components/Header';
+import Error from './Components/Error';
 
 function AppLayout() {
   const [favCount, setFavCount] = useState(0);
@@ -30,14 +31,17 @@ const appRouter = createBrowserRouter([
       {
         path: '/plants/:plantId',
         element: <PlantData />,
+        errorElement: <Error />,
       },
       {
         path: '/about',
         element: <AboutUs />,
+        errorElement: <Error />,
       },
       {
         path: '/fav',
         element: <Favourites />,
+        errorElement: <Error />,
       },
     ],
   },

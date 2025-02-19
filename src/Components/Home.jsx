@@ -1,19 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
-import plantData from '../mockdata.json';
+//import plantData from '../mockdata.json';
 import PlantCard from './PlantCard';
-import { getPlants } from '../plantService';
+// import { getPlants } from '../plantService';
 import { Link } from 'react-router-dom';
 import SearchPlant from './SearchPlant';
 import CategorySearch from './CategorySearch';
 import AddPlant from './AddPlant';
-import Header from './Header';
 import { FavContext } from '../favContex';
+import { Button } from '@mui/material';
 
 const Home = () => {
   const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState(plantData.plants);
+  // const [filteredData, setFilteredData] = useState(plantData.plants);
+  const [filteredData, setFilteredData] = useState([]);
   const [input, setInput] = useState('');
   const [error, setError] = useState('');
+  const [open, setOpen] = React.useState(false);
 
   const [newPlant, setNewPlant] = useState({
     name: '',
@@ -26,14 +28,24 @@ const Home = () => {
 
   const { setFavCount } = useContext(FavContext);
   const { fav, setFav } = useContext(FavContext);
-  useEffect(() => {
-    async function getData() {
-      const data = await getPlants();
-      setData(data.plants);
-    }
-    getData();
-  }, []);
 
+  // useEffect(() => {
+  //   async function getData() {
+  //     const data = await getPlants();
+  //     setData(data.plants);
+  //   }
+  //   getData();
+  // }, []);
+
+  useEffect(() => {
+    async function getPlantData() {
+      const data = await fetch('http://localhost:8004/plants');
+      const result = await data.json();
+      setData(result.plants);
+      setFilteredData(result.plants);
+    }
+    getPlantData();
+  }, []);
   function handleInput(e) {
     setInput(e.target.value);
   }
@@ -102,6 +114,7 @@ const Home = () => {
     const newData = [plant, ...data];
     setData(newData);
     setFilteredData(newData);
+    setOpen(false);
   }
 
   function handleFav(e, id) {
@@ -112,6 +125,15 @@ const Home = () => {
     const favPlant = data.find((plant) => plant.id === id);
     setFav([...fav, favPlant]);
   }
+
+  function handleRemoveButton(e, id) {
+    e.preventDefault();
+    e.stopPropagation();
+    const filteredPlants = data.filter((plant) => plant.id !== id);
+    setFilteredData(filteredPlants);
+  }
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <div>
@@ -126,6 +148,8 @@ const Home = () => {
         handleAddPlant={handleAddPlant}
         handleNewPlant={handleNewPlant}
         newPlant={newPlant}
+        handleClose={handleClose}
+        open={open}
       />
       <CategorySearch
         selectedCategory={selectedCategory}
@@ -135,6 +159,14 @@ const Home = () => {
         <p style={{ color: 'red' }}>{error}</p>
       ) : (
         <div className="container">
+          <Button
+            className="plant-card add-new-plant"
+            onClick={handleOpen}
+            sx={{ border: '2px dotted' }}
+          >
+            <span>+</span>Add new plant
+          </Button>
+
           {filteredData.map((plant) => (
             <Link to={'/plants/' + plant.id} key={plant.id}>
               <PlantCard
@@ -142,8 +174,12 @@ const Home = () => {
                 title={plant.name}
                 category={plant.category}
               />
+
               <button onClick={(e) => handleFav(e, plant.id)}>
                 Add to fav
+              </button>
+              <button onClick={(e) => handleRemoveButton(e, plant.id)}>
+                Remove plant
               </button>
             </Link>
           ))}

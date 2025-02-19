@@ -32,6 +32,18 @@ img {
   border: 2px solid black;
 }
 
+.add-new-plant {
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  border: 2px dotted grey;
+  cursor: pointer;
+}
+
+.add-new-plant span {
+  font-size: 3rem;
+}
+
 .image {
   height: 80%;
   width: 100%;

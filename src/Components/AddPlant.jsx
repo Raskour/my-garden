@@ -1,57 +1,100 @@
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from '@mui/material';
 import React from 'react';
 
-const AddPlant = ({ handleNewPlant, handleAddPlant, newPlant }) => {
+const AddPlant = ({
+  handleNewPlant,
+  handleAddPlant,
+  newPlant,
+  handleClose,
+  open,
+}) => {
   return (
     <div>
-      <form className="form" onSubmit={handleAddPlant}>
-        <div>
-          <label>Plant Name</label>
-          <input
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        slotProps={{
+          paper: {
+            component: 'form',
+            onSubmit: handleAddPlant,
+          },
+        }}
+      >
+        <DialogTitle>Add a new Plant</DialogTitle>
+        <DialogContent
+          sx={{
+            gap: '1rem',
+            display: 'flex',
+            flexDirection: 'column',
+            minWidth: '80%',
+          }}
+        >
+          {/* <label>Plant Name</label> */}
+          <TextField
             name="name"
+            label="Plant Name"
             value={newPlant.name}
             onChange={handleNewPlant}
-          ></input>
-        </div>
+            size="small"
+            fullWidth
+          />
 
-        <div>
-          <label>Price</label>
-          <input
+          {/* <label>Price</label> */}
+          <TextField
             name="price"
+            label="Price"
             value={newPlant.price}
             onChange={handleNewPlant}
-          ></input>
-        </div>
-        <div>
-          <label>Add image</label>
-          <input
+            size="small"
+            fullWidth
+          />
+
+          {/* <label>Add image</label> */}
+          <TextField
             type="text"
+            label="Add Image"
             name="image"
             value={newPlant.image}
             onChange={handleNewPlant}
+            size="small"
+            fullWidth
           />
-        </div>
-        <div>
-          <label>Category</label>
-          <select
-            name="category"
-            value={newPlant.category}
-            onChange={handleNewPlant}
-          >
-            <option>Please choose an option</option>
-            <option value="Indoor">Indoor Plants</option>
-            <option value="Outdoor">Outdoor Plants</option>
-            <option value="Herbs">Herbs</option>
-            <option value="Medicines">Medicinal Plants</option>
-          </select>
-          {/* <input
+
+          <div>
+            <label>Category</label>
+            <select
+              name="category"
+              value={newPlant.category}
+              onChange={handleNewPlant}
+            >
+              <option>Please choose an option</option>
+              <option value="Indoor">Indoor Plants</option>
+              <option value="Outdoor">Outdoor Plants</option>
+              <option value="Herbs">Herbs</option>
+              <option value="Medicines">Medicinal Plants</option>
+            </select>
+            {/* <input
             name="category"
             value={newPlant.category}
             onChange={handleNewPlant}
           ></input> */}
-        </div>
+          </div>
+        </DialogContent>
 
-        <button className="add-plant">Add Plant</button>
-      </form>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button variant="contained" size="small" type="submit">
+            Add Plant
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

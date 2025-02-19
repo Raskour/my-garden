@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PlantCard = ({ image, title, category }) => {
+const PlantCard = ({ image, title }) => {
   return (
     <div className="plant-card">
       <img className="image" src={image} alt="" />
