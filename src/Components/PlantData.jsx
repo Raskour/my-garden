@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPlantById } from '../plantService';
 
 const PlantData = () => {
   const [plant, setPlant] = useState(null);
@@ -9,7 +8,10 @@ const PlantData = () => {
 
   useEffect(() => {
     async function getPlant() {
-      const result = await getPlantById(plantId);
+      const res = await fetch(`http://localhost:8004/plants/${plantId}`);
+
+      const result = await res.json();
+
       setLoading(false);
       setPlant(result);
     }

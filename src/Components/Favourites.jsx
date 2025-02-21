@@ -1,8 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FavContext } from '../favContex';
 
 const Favourites = () => {
-  const { fav } = useContext(FavContext);
+  const [fav, setFav] = useState([]);
+
+  useEffect(() => {
+    async function getFavPlants() {
+      const res = await fetch('http://localhost:8004/favPlants');
+
+      const data = await res.json();
+      setFav(data);
+    }
+    getFavPlants();
+  }, []);
 
   return (
     <div>

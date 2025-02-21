@@ -16,6 +16,8 @@ const Home = () => {
   const [input, setInput] = useState('');
   const [error, setError] = useState('');
   const [open, setOpen] = React.useState(false);
+  const [fav, setFav] = useState([]);
+  const [favCount, setfavCount] = useState(0);
 
   const [newPlant, setNewPlant] = useState({
     name: '',
@@ -26,8 +28,8 @@ const Home = () => {
 
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const { setFavCount } = useContext(FavContext);
-  const { fav, setFav } = useContext(FavContext);
+  // const { setFavCount } = useContext(FavContext);
+  // const { fav, setFav } = useContext(FavContext);
 
   // useEffect(() => {
   //   async function getData() {
@@ -117,13 +119,31 @@ const Home = () => {
     setOpen(false);
   }
 
-  function handleFav(e, id) {
+  async function handleFav(e, id) {
     e.preventDefault();
     e.stopPropagation();
+    try {
+      const res = await fetch('http://localhost:8004/favPlants', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Add this line
+        },
+        body: JSON.stringify({ id }),
+      });
+      if (!res.ok) {
+        alert(res.error);
+        return;
+      }
 
-    setFavCount((prevCount) => prevCount + 1);
-    const favPlant = data.find((plant) => plant.id === id);
-    setFav([...fav, favPlant]);
+      const result = await res.json();
+      alert(result.message);
+
+      // setfavCount((prevCount) => prevCount + 1);
+      // // const favPlant = data.find((plant) => plant.id === id);
+      // setFav([...fav, result]);
+    } catch (err) {
+      console.error('Error adding to fav', err);
+    }
   }
 
   function handleRemoveButton(e, id) {
