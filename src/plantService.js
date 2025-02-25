@@ -25,4 +25,41 @@ async function getFavPlants() {
   const data = await fs.readFile('./favPlant.json', 'utf-8');
   return JSON.parse(data);
 }
-module.exports = { getPlantById, getPlants, getFavPlants };
+
+async function deleteFavPlant(id) {
+  const data = await fs.readFile('./favPlant.json', 'utf-8');
+  const res = JSON.parse(data);
+  const result = res.filter((plant) => plant.id !== id);
+  await fs.writeFile('./favPlant.json', JSON.stringify(result));
+}
+
+async function addNewPlant(body) {
+  const data = await fs.readFile('./src/mockdata.json', 'utf-8');
+  const plantData = JSON.parse(data);
+
+  const newPlantData = [body, ...plantData.plants];
+  await fs.writeFile(
+    './src/mockdata.json',
+    JSON.stringify({ plants: newPlantData })
+  );
+}
+
+async function deletePlant(id) {
+  const data = await fs.readFile('./src/mockdata.json', 'utf-8');
+  const plantData = JSON.parse(data);
+  console.log(JSON.stringify({ plantData, id }));
+  const newPlant = plantData.plants.filter((plant) => plant.id !== id);
+
+  await fs.writeFile(
+    './src/mockdata.json',
+    JSON.stringify({ plants: newPlant })
+  );
+}
+module.exports = {
+  getPlantById,
+  getPlants,
+  getFavPlants,
+  deleteFavPlant,
+  addNewPlant,
+  deletePlant,
+};

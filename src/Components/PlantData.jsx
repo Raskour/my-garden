@@ -11,6 +11,7 @@ const PlantData = () => {
       const res = await fetch(`http://localhost:8004/plants/${plantId}`);
 
       const result = await res.json();
+      console.log({ result });
 
       setLoading(false);
       setPlant(result);

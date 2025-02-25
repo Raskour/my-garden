@@ -2,7 +2,14 @@ const express = require('express');
 const fs = require('fs');
 var cors = require('cors');
 //const plantData = require('./mockdata.json');
-const { getPlantById, getPlants, getFavPlants } = require('./plantService');
+const {
+  getPlantById,
+  getPlants,
+  getFavPlants,
+  deleteFavPlant,
+  addNewPlant,
+  deletePlant,
+} = require('./plantService');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -12,6 +19,23 @@ app.use(cors());
 
 app.get('/plants', async (req, res) => {
   const result = await getPlants();
+  res.json(result);
+});
+
+app.get('/plants/:id', async (req, res) => {
+  const id = req.params.id;
+
+  const result = await getPlantById(id);
+  if (!result) {
+    return res.status(404).json({ error: 'Plant not found' });
+  }
+
+  res.json(result);
+});
+
+app.get('/favPlants', async (req, res) => {
+  const result = await getFavPlants();
+
   res.json(result);
 });
 
@@ -41,20 +65,26 @@ app.post('/favPlants', async (req, res) => {
   }
 });
 
-app.get('/favPlants', async (req, res) => {
-  const result = await getFavPlants();
-  console.log(result);
-  res.json(result);
+app.delete('/favPlants/:id', async (req, res) => {
+  const id = req.params.id;
+  await deleteFavPlant(id);
+  res.json({ message: 'Success' });
 });
 
-app.get('/plants/:id', async (req, res) => {
-  const id = Number(req.params.id);
-  const result = await getPlantById(id);
-  if (!result) {
-    return res.status(404).json({ error: 'Plant not found' });
-  }
+app.post('/addPlant', async (req, res) => {
+  const body = req.body;
+  await addNewPlant(body);
+  res.json({ message: 'Plant has been added' });
+});
 
-  res.json(result);
+app.delete('/deletePlant/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    await deletePlant(id);
+    res.json({ message: 'Plant has been deleted' });
+  } catch (err) {
+    res.json(err);
+  }
 });
 
 const PORT = 8004;

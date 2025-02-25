@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import SearchPlant from './SearchPlant';
 import CategorySearch from './CategorySearch';
 import AddPlant from './AddPlant';
-import { FavContext } from '../favContex';
+// import { FavContext } from '../favContex';
 import { Button } from '@mui/material';
 
 const Home = () => {
@@ -16,8 +16,8 @@ const Home = () => {
   const [input, setInput] = useState('');
   const [error, setError] = useState('');
   const [open, setOpen] = React.useState(false);
-  const [fav, setFav] = useState([]);
-  const [favCount, setfavCount] = useState(0);
+  // const [fav, setFav] = useState([]);
+  // const [favCount, setfavCount] = useState(0);
 
   const [newPlant, setNewPlant] = useState({
     name: '',
@@ -69,6 +69,7 @@ const Home = () => {
     const result = data.filter((item) =>
       item.name.toLowerCase().includes(input.toLowerCase())
     );
+
     // const result = data.filter(
     //   (item) => item.name.toLowerCase() === input.toLowerCase()
     // );
@@ -100,20 +101,39 @@ const Home = () => {
     });
   }
 
-  function handleAddPlant(e) {
+  async function handleAddPlant(e) {
     e.preventDefault();
     if (!newPlant.name || !newPlant.category || !newPlant.price) {
       alert('Please type in all the required details');
       return;
     }
+
     const plant = {
-      id: data.length + 1,
+      id: crypto.randomUUID(),
       name: newPlant.name,
       category: newPlant.category,
       price: Number(newPlant.price),
       images: [newPlant.image],
     };
+
+    const res = await fetch('http://localhost:8004/addPlant', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // Add this line
+      },
+      body: JSON.stringify(plant),
+    });
+
+    if (!res.ok) {
+      alert(res.error);
+      return;
+    }
+
+    // const result = await res.json();
+    // alert(result.message);
+
     const newData = [plant, ...data];
+
     setData(newData);
     setFilteredData(newData);
     setOpen(false);
@@ -146,11 +166,27 @@ const Home = () => {
     }
   }
 
-  function handleRemoveButton(e, id) {
+  async function handleRemoveButton(e, id) {
     e.preventDefault();
     e.stopPropagation();
-    const filteredPlants = data.filter((plant) => plant.id !== id);
-    setFilteredData(filteredPlants);
+    try {
+      const res = await fetch(`http://localhost:8004/deletePlant/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json', // Add this line
+        },
+        body: JSON.stringify({ id }),
+      });
+      if (!res.ok) {
+        alert(res.error);
+        return;
+      }
+      const filteredPlants = data.filter((plant) => plant.id !== id);
+      setData(filteredPlants);
+      setFilteredData(filteredPlants);
+    } catch (err) {
+      console.error('Error deleting the plant');
+    }
   }
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -199,7 +235,7 @@ const Home = () => {
                 Add to fav
               </button>
               <button onClick={(e) => handleRemoveButton(e, plant.id)}>
-                Remove plant
+                Delete plant
               </button>
             </Link>
           ))}

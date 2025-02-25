@@ -1,24 +1,34 @@
 {
   "plants": [
     {
-      "id": 1,
-      "name": "Snake Plant ",
-      "scientific_name": "Sansevieria trifasciata",
+      "id": "41ee9246-2e27-414e-8795-ba5ee38e0ab2",
+      "name": "Rubber Plant",
       "category": "Indoor",
-      "type": "Succulent",
-      "features": ["Air Purifying", "Low Maintenance", "Thrives in Low Light"],
-      "price": 25.99,
+      "price": 40,
       "images": [
-        "https://abeautifulmess.com/wp-content/uploads/2023/05/Snakeplant-4-1148x1536.jpg"
-      ],
-      "water_requirements": "Once a week",
-      "sunlight": "Indirect light",
-      "growth_rate": "Slow",
-      "care_level": "Easy",
-      "origin": "West Africa"
+        "https://theplantsociety.com.au/cdn/shop/products/ThePlantSociety_Ficuselastica_03.jpg?v=1685536819&width=751"
+      ]
     },
     {
-      "id": 2,
+      "id": "9baa28b3-e9f1-46de-90b7-6c7a4e551b5a",
+      "name": "Snake plant",
+      "category": "Indoor",
+      "price": 35,
+      "images": [
+        "https://abeautifulmess.com/wp-content/uploads/2023/05/Snakeplant-1-730x730.jpg"
+      ]
+    },
+    {
+      "id": "41ee9246-2e27-414e-8795-ba5ee38e0ab3",
+      "name": "Rasmeet Kour",
+      "category": "Outdoor",
+      "price": 3,
+      "images": [
+        "https://thepalmssydney.com.au/cdn/shop/files/TPNursery-616.jpg?v=1724824098"
+      ]
+    },
+    {
+      "id": "41ee9246-2e27-414e-8795-ba5ee38e0ab6",
       "name": "Fiddle Leaf Fig",
       "scientific_name": "Ficus lyrata",
       "category": "Indoor",
@@ -35,7 +45,7 @@
       "origin": "Tropical West Africa"
     },
     {
-      "id": 3,
+      "id": "41ee9246-2e27-414e-8795-ba5ee38e0ab8",
       "name": "Aloe Vera",
       "scientific_name": "Aloe barbadensis miller",
       "category": "Medicinal",
@@ -52,7 +62,7 @@
       "origin": "Arabian Peninsula"
     },
     {
-      "id": 4,
+      "id": "41ee9246-2e27-414e-8795-ba5ee38e0ab4",
       "name": "Rosemary",
       "scientific_name": "Salvia rosmarinus",
       "category": "Herb",
@@ -69,13 +79,13 @@
       "origin": "Mediterranean"
     },
     {
-      "id": 5,
+      "id": "41ee9246-2e27-414e-8795-ba5ee38e0ab9",
       "name": "Bamboo Palm",
       "scientific_name": "Chamaedorea seifrizii",
       "category": "Indoor",
       "type": "Palm",
       "features": ["Air Purifying", "Pet-Friendly", "Low Maintenance"],
-      "price": 30.0,
+      "price": 30,
       "images": [
         "https://theplantdistro.com.au/cdn/shop/files/chamaedorea-seifrizii-bamboo-palm-400mm-outdoor-342.webp?v=1710830810&width=493"
       ],
@@ -84,91 +94,6 @@
       "growth_rate": "Slow",
       "care_level": "Moderate",
       "origin": "Central America"
-    },
-    {
-      "id": 6,
-      "name": "Cactus",
-      "scientific_name": "Cactaceae",
-      "category": "Outdoor",
-      "type": "Succulent",
-      "features": ["Drought Resistant", "Low Maintenance", "Unique Shapes"],
-      "price": 20.0,
-      "images": [
-        "https://thepalmssydney.com.au/cdn/shop/files/TPNursery-616.jpg?v=1724824098"
-      ],
-      "water_requirements": "Once a month",
-      "sunlight": "Full sun",
-      "growth_rate": "Slow",
-      "care_level": "Easy",
-      "origin": "Americas"
-    },
-    {
-      "id": 7,
-      "name": "Tulsi (Holy Basil)",
-      "scientific_name": "Ocimum tenuiflorum",
-      "category": "Medicinal",
-      "type": "Herb",
-      "features": ["Medicinal", "Aromatic", "Sacred Plant"],
-      "price": 12.99,
-      "images": [
-        "https://www.hachettebookgroup.com/wp-content/uploads/2023/02/Tulsi_or_Tulasi_Holy_basil.jpg"
-      ],
-      "water_requirements": "Every 2 days",
-      "sunlight": "Full sun",
-      "growth_rate": "Fast",
-      "care_level": "Easy",
-      "origin": "India"
-    },
-    {
-      "id": 8,
-      "name": "Monstera",
-      "scientific_name": "Monstera deliciosa",
-      "category": "Indoor",
-      "type": "Vine",
-      "features": ["Decorative", "Large Leaves", "Fast Growing"],
-      "price": 40.0,
-      "images": [
-        "https://www.adairs.com.au/globalassets/13.-ecommerce/03.-product-images/2022_images/homewares/plants--stems/37612_adairs_potted-plant_monstera-double.jpg?width=800&mode=crop&heightratio=1&quality=80"
-      ],
-      "water_requirements": "Once a week",
-      "sunlight": "Bright, indirect light",
-      "growth_rate": "Fast",
-      "care_level": "Moderate",
-      "origin": "Central America"
-    },
-    {
-      "id": 9,
-      "name": "Lavender",
-      "scientific_name": "Lavandula angustifolia",
-      "category": "Herb",
-      "type": "Shrub",
-      "features": ["Aromatic", "Medicinal", "Attracts Pollinators"],
-      "price": 18.99,
-      "images": [
-        "https://www.seedscape.net.au/wp-content/uploads/2021/09/LAVANDULA-LATIFOLIA-1.jpg"
-      ],
-      "water_requirements": "Once a week",
-      "sunlight": "Full sun",
-      "growth_rate": "Medium",
-      "care_level": "Easy",
-      "origin": "Mediterranean"
-    },
-    {
-      "id": 10,
-      "name": "Money Plant",
-      "scientific_name": "Epipremnum aureum",
-      "category": "Indoor",
-      "type": "Climber",
-      "features": ["Low Maintenance", "Purifies Air", "Fast Growth"],
-      "price": 22.0,
-      "images": [
-        "https://planaplant.com/cdn/shop/products/MoneyPlantGolden1_470x526.jpg?v=1636616627"
-      ],
-      "water_requirements": "Once a week",
-      "sunlight": "Low to Medium Light",
-      "growth_rate": "Fast",
-      "care_level": "Easy",
-      "origin": "Southeast Asia"
     }
   ]
 }

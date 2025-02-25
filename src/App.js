@@ -27,7 +27,7 @@ const appRouter = createBrowserRouter([
     path: '/',
     element: <AppLayout />,
     children: [
-      { path: '/', element: <Home /> },
+      { path: '/', element: <Home />, errorElement: <Error /> },
       {
         path: '/plants/:plantId',
         element: <PlantData />,
