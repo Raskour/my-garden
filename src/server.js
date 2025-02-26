@@ -9,6 +9,7 @@ const {
   deleteFavPlant,
   addNewPlant,
   deletePlant,
+  editPlant,
 } = require('./plantService');
 const bodyParser = require('body-parser');
 
@@ -85,6 +86,13 @@ app.delete('/deletePlant/:id', async (req, res) => {
   } catch (err) {
     res.json(err);
   }
+});
+
+app.put('/editPlant/:id', async (req, res) => {
+  const id = req.params.id;
+  const body = req.body;
+  await editPlant(id, body);
+  res.json({ message: 'Plant has been updated' });
 });
 
 const PORT = 8004;

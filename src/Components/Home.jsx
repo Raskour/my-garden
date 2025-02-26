@@ -8,6 +8,7 @@ import CategorySearch from './CategorySearch';
 import AddPlant from './AddPlant';
 // import { FavContext } from '../favContex';
 import { Button } from '@mui/material';
+import EditPlant from './EditPlant';
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -16,6 +17,8 @@ const Home = () => {
   const [input, setInput] = useState('');
   const [error, setError] = useState('');
   const [open, setOpen] = React.useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+
   // const [fav, setFav] = useState([]);
   // const [favCount, setfavCount] = useState(0);
 
@@ -25,6 +28,8 @@ const Home = () => {
     price: '',
     image: '',
   });
+
+  const [editPlant, setEditPlant] = useState(null);
 
   const [selectedCategory, setSelectedCategory] = useState('All');
 
@@ -188,8 +193,63 @@ const Home = () => {
       console.error('Error deleting the plant');
     }
   }
+
+  function handleEditPlant(e) {
+    const value = e.target.value;
+    const inputName = e.target.name;
+
+    setEditPlant((prevState) => {
+      return { ...prevState, [inputName]: value };
+    });
+  }
+  async function handleUpdatePlant(e) {
+    e.preventDefault();
+    if (!editPlant.name || !editPlant.category || !editPlant.price) {
+      alert('Please type in all the required details');
+      return;
+    }
+
+    const plant = {
+      ...editPlant,
+      price: Number(editPlant.price),
+
+      images: [editPlant.image],
+    };
+
+    const res = await fetch(`http://localhost:8004/editPlant/${editPlant.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json', // Add this line
+      },
+      body: JSON.stringify(plant),
+    });
+
+    if (!res.ok) {
+      alert(res.error);
+      return;
+    }
+
+    // const result = await res.json();
+    // alert(result.message);
+    const plantIndex = data.findIndex((plant) => plant.id === editPlant.id);
+
+    const newData = data.toSpliced(plantIndex, 1, plant);
+
+    setData(newData);
+    setFilteredData(newData);
+    setOpenEdit(false);
+  }
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  function handleEditClose() {
+    setOpenEdit(false);
+  }
+  function handleEditOpen(e, plant) {
+    e.preventDefault();
+    e.stopPropagation();
+    setEditPlant(plant);
+    setOpenEdit(true);
+  }
 
   return (
     <div>
@@ -207,6 +267,15 @@ const Home = () => {
         handleClose={handleClose}
         open={open}
       />
+      {editPlant && (
+        <EditPlant
+          handleUpdatePlant={handleUpdatePlant}
+          handleEditPlant={handleEditPlant}
+          editPlant={editPlant}
+          handleEditClose={handleEditClose}
+          openEdit={openEdit}
+        />
+      )}
       <CategorySearch
         selectedCategory={selectedCategory}
         handleCategory={handleCategory}
@@ -236,6 +305,9 @@ const Home = () => {
               </button>
               <button onClick={(e) => handleRemoveButton(e, plant.id)}>
                 Delete plant
+              </button>
+              <button onClick={(e) => handleEditOpen(e, plant)}>
+                Edit Plant
               </button>
             </Link>
           ))}
