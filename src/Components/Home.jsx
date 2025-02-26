@@ -212,8 +212,6 @@ const Home = () => {
     const plant = {
       ...editPlant,
       price: Number(editPlant.price),
-
-      images: [editPlant.image],
     };
 
     const res = await fetch(`http://localhost:8004/editPlant/${editPlant.id}`, {
@@ -228,9 +226,7 @@ const Home = () => {
       alert(res.error);
       return;
     }
-
-    // const result = await res.json();
-    // alert(result.message);
+    const result = await res.json(); //need this just to create result, otherwise dont need result as i am not storing it anywhere
     const plantIndex = data.findIndex((plant) => plant.id === editPlant.id);
 
     const newData = data.toSpliced(plantIndex, 1, plant);
@@ -238,6 +234,11 @@ const Home = () => {
     setData(newData);
     setFilteredData(newData);
     setOpenEdit(false);
+
+    // optional, just to add the additional alert message that the plant has been added
+    setTimeout(() => {
+      alert(result.message);
+    }, 500);
   }
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -295,7 +296,7 @@ const Home = () => {
           {filteredData.map((plant) => (
             <Link to={'/plants/' + plant.id} key={plant.id}>
               <PlantCard
-                image={plant.images[0]}
+                image={plant.image}
                 title={plant.name}
                 category={plant.category}
               />

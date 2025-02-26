@@ -91,6 +91,7 @@ app.delete('/deletePlant/:id', async (req, res) => {
 app.put('/editPlant/:id', async (req, res) => {
   const id = req.params.id;
   const body = req.body;
+  console.log({ body });
   await editPlant(id, body);
   res.json({ message: 'Plant has been updated' });
 });

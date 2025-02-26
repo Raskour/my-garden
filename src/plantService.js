@@ -59,7 +59,7 @@ async function editPlant(id, body) {
   const data = await fs.readFile('./src/mockdata.json', 'utf-8');
   const plantData = JSON.parse(data);
   const plantIndex = plantData.plants.findIndex((plant) => plant.id === id);
-  console.log({ plantIndex });
+
   if (plantIndex === -1) {
     throw new Error('Plant with this id not found');
   }
