@@ -118,7 +118,7 @@ const Home = () => {
       name: newPlant.name,
       category: newPlant.category,
       price: Number(newPlant.price),
-      images: [newPlant.image],
+      image: newPlant.image,
     };
 
     const res = await fetch('http://localhost:8004/addPlant', {

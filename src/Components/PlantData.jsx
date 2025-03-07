@@ -30,7 +30,7 @@ const PlantData = () => {
     <div className="data-container">
       <div className="plant-data">
         <h2>{plant.name}</h2>
-        <img src={plant.images[0]} alt="" />
+        <img src={plant.image} alt="" />
         <p>Category: {plant.category}</p>
         <p>Features: {plant.features}</p>
         <p>Price: {plant.price}</p>
