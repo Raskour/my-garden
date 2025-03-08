@@ -104,3 +104,12 @@ img {
   gap: 1rem;
   flex-wrap: wrap;
 }
+
+.pagination {
+  display: flex;
+  gap: 1rem;
+}
+.pagination-num {
+  display: flex;
+  gap: 1rem;
+}

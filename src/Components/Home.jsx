@@ -9,6 +9,7 @@ import AddPlant from './AddPlant';
 // import { FavContext } from '../favContex';
 import { Button } from '@mui/material';
 import EditPlant from './EditPlant';
+import Pagination from './Pagination';
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -18,6 +19,8 @@ const Home = () => {
   const [error, setError] = useState('');
   const [open, setOpen] = React.useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
   // const [fav, setFav] = useState([]);
   // const [favCount, setfavCount] = useState(0);
@@ -45,14 +48,18 @@ const Home = () => {
   // }, []);
 
   useEffect(() => {
-    async function getPlantData() {
-      const data = await fetch('http://localhost:8004/plants');
-      const result = await data.json();
-      setData(result.plants);
-      setFilteredData(result.plants);
+    async function getPlantData(page) {
+      const data = await fetch(
+        `http://localhost:8004/plants?page=${page}&pageSize=4`
+      );
+      const { paginatedPlants, totalPages } = await data.json();
+
+      setData(paginatedPlants);
+      setFilteredData(paginatedPlants);
+      setTotalPages(totalPages);
     }
-    getPlantData();
-  }, []);
+    getPlantData(currentPage);
+  }, [currentPage]);
   function handleInput(e) {
     setInput(e.target.value);
   }
@@ -124,7 +131,7 @@ const Home = () => {
     const res = await fetch('http://localhost:8004/addPlant', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', // Add this line
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(plant),
     });
@@ -251,6 +258,23 @@ const Home = () => {
     setEditPlant(plant);
     setOpenEdit(true);
   }
+  // const Page_Size = 4;
+  // const start = currentPage * Page_Size;
+  // const end = start + Page_Size;
+  // const totalPlants = data.length;
+  // const numOfPages = Math.ceil(totalPlants / Page_Size);
+
+  function handleNext() {
+    setCurrentPage((prev) => prev + 1);
+  }
+
+  function handlePrev() {
+    setCurrentPage((prev) => prev - 1);
+  }
+
+  function handleButton(n) {
+    setCurrentPage(n);
+  }
 
   return (
     <div>
@@ -260,6 +284,13 @@ const Home = () => {
         input={input}
         handleInput={handleInput}
         handleSearch={handleSearch}
+      />
+      <Pagination
+        handleNext={handleNext}
+        handlePrev={handlePrev}
+        handleButton={handleButton}
+        currentPage={currentPage}
+        numOfPages={totalPages}
       />
       <AddPlant
         handleAddPlant={handleAddPlant}

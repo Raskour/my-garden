@@ -19,8 +19,16 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/plants', async (req, res) => {
+  const page = Number(req.query.page);
+  const pageSize = Number(req.query.pageSize);
+
+  const startIndex = page * pageSize;
+  const endIndex = startIndex + pageSize;
+
   const result = await getPlants();
-  res.json(result);
+  const totalPages = Math.ceil(result.plants.length / pageSize);
+  const paginatedPlants = result.plants.slice(startIndex, endIndex);
+  res.json({ paginatedPlants, totalPages });
 });
 
 app.get('/plants/:id', async (req, res) => {
