@@ -60,6 +60,8 @@ const Home = () => {
     }
     getPlantData(currentPage);
   }, [currentPage]);
+
+  console.log({ data });
   function handleInput(e) {
     setInput(e.target.value);
   }

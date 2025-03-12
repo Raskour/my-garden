@@ -4,7 +4,7 @@ import './App.css';
 import Home from './Components/Home';
 import PlantData from './Components/PlantData';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import { FavContext } from './favContex';
+import { FavContext } from './context/favContex';
 import Favourites from './Components/Favourites';
 import Header from './Components/Header';
 import Error from './Components/Error';

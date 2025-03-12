@@ -1,6 +1,8 @@
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
 var cors = require('cors');
+const favPlantPath = path.join(__dirname, 'favPlant.json');
 //const plantData = require('./mockdata.json');
 const {
   getPlantById,
@@ -43,9 +45,13 @@ app.get('/plants/:id', async (req, res) => {
 });
 
 app.get('/favPlants', async (req, res) => {
-  const result = await getFavPlants();
+  try {
+    const result = await getFavPlants();
 
-  res.json(result);
+    res.json(result);
+  } catch (err) {
+    res.json(err);
+  }
 });
 
 app.post('/favPlants', async (req, res) => {
@@ -64,7 +70,7 @@ app.post('/favPlants', async (req, res) => {
   } else {
     favPlants.push(plant);
 
-    fs.writeFile('./favPlant.json', JSON.stringify(favPlants), (err) => {
+    fs.writeFile(favPlantPath, JSON.stringify(favPlants), (err) => {
       if (err) {
         console.error('Error writing to favPlant.json:', err);
         return res.status(500).json({ error: 'Failed to save favorite plant' });
