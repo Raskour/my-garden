@@ -21,15 +21,24 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/plants', async (req, res) => {
-  const page = Number(req.query.page);
-  const pageSize = Number(req.query.pageSize);
+  const page = Number(req.query.page ?? 1);
 
-  const startIndex = page * pageSize;
+  const pageSize = Number(req.query.pageSize ?? 4);
+  const category = req.query.category;
+
+  const startIndex = (page - 1) * pageSize;
   const endIndex = startIndex + pageSize;
 
   const result = await getPlants();
-  const totalPages = Math.ceil(result.plants.length / pageSize);
-  const paginatedPlants = result.plants.slice(startIndex, endIndex);
+  let filteredPlants = result.plants;
+
+  if (category) {
+    filteredPlants = filteredPlants.filter((p) => p.category === category);
+  }
+
+  const totalPages = Math.ceil(filteredPlants.length / pageSize);
+  const paginatedPlants = filteredPlants.slice(startIndex, endIndex);
+
   res.json({ paginatedPlants, totalPages });
 });
 

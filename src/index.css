@@ -113,3 +113,8 @@ img {
   display: flex;
   gap: 1rem;
 }
+
+.buttons {
+  display: flex;
+  margin-left: 25rem;
+}

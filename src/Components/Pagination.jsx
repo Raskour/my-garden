@@ -16,9 +16,9 @@ const Pagination = ({
         {[...Array(numOfPages).keys()].map((num) => (
           <button
             style={{
-              backgroundColor: currentPage === num ? 'green' : 'grey',
+              backgroundColor: currentPage === num + 1 ? 'green' : 'grey',
             }}
-            onClick={() => handleButton(num)}
+            onClick={() => handleButton(num + 1)}
           >
             {num + 1}
           </button>

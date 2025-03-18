@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 //import plantData from '../mockdata.json';
 import PlantCard from './PlantCard';
 // import { getPlants } from '../plantService';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import SearchPlant from './SearchPlant';
 import CategorySearch from './CategorySearch';
 import AddPlant from './AddPlant';
@@ -19,7 +19,8 @@ const Home = () => {
   const [error, setError] = useState('');
   const [open, setOpen] = React.useState(false);
   const [openEdit, setOpenEdit] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
+  //const [currentPage, setCurrentPage] = useState(0)
+  const [searchParam, setSearchParam] = useSearchParams();
   const [totalPages, setTotalPages] = useState(0);
 
   // const [fav, setFav] = useState([]);
@@ -48,20 +49,27 @@ const Home = () => {
   // }, []);
 
   useEffect(() => {
-    async function getPlantData(page) {
-      const data = await fetch(
-        `http://localhost:8004/plants?page=${page}&pageSize=4`
-      );
-      const { paginatedPlants, totalPages } = await data.json();
+    async function getPlantData() {
+      try {
+        const queryString = new URLSearchParams(searchParam).toString(); // 'page=0&category=Outdoor'
 
-      setData(paginatedPlants);
-      setFilteredData(paginatedPlants);
-      setTotalPages(totalPages);
+        const data = await fetch(`http://localhost:8004/plants?${queryString}`);
+        const { paginatedPlants, totalPages } = await data.json();
+
+        setData(paginatedPlants);
+        setFilteredData(paginatedPlants);
+        setTotalPages(totalPages);
+        //getPlantData(currentPage)
+        //}, [currentPage])
+      } catch (error) {
+        console.error('Error fetching paginated plants:', error);
+      }
     }
-    getPlantData(currentPage);
-  }, [currentPage]);
 
-  console.log({ data });
+    getPlantData();
+    // getPlantData(Number(searchParam.get('page') ?? 0)); (Old)
+  }, [searchParam]);
+
   function handleInput(e) {
     setInput(e.target.value);
   }
@@ -96,14 +104,19 @@ const Home = () => {
 
   function handleCategory(e) {
     const category = e.target.value;
-    setSelectedCategory(category);
 
-    if (category === 'All') {
-      setFilteredData(data);
-    } else {
-      const filtered = data.filter((plant) => plant.category === category);
-      setFilteredData(filtered);
-    }
+    setSelectedCategory(category); // react use state variable update
+    setSearchParam((prevParams) => {
+      prevParams.set('category', category);
+      return prevParams;
+    }); // url query param update
+
+    // if (category === 'All') {
+    //   setFilteredData(data);
+    // } else {
+    //   const filtered = data.filter((plant) => plant.category === category);
+    //   setFilteredData(filtered);
+    // }
   }
 
   function handleNewPlant(e) {
@@ -267,16 +280,38 @@ const Home = () => {
   // const numOfPages = Math.ceil(totalPlants / Page_Size);
 
   function handleNext() {
-    setCurrentPage((prev) => prev + 1);
+    //setCurrentPage((prev) => prev+1)
+
+    const prevPage = searchParam.get('page');
+
+    // setSearchParam({ page: Number(prevPage) - 1 });
+
+    setSearchParam((prevParams) => {
+      prevParams.set('page', Number(prevPage) + 1);
+      return prevParams;
+    });
   }
 
   function handlePrev() {
-    setCurrentPage((prev) => prev - 1);
+    //setCurrentPage((prev) => prev+1)
+    const prevPage = searchParam.get('page');
+    //setSearchParam({ page: Number(prevPage) - 1 });
+    setSearchParam((prevParams) => {
+      prevParams.set('page', Number(prevPage) - 1);
+      return prevParams;
+    });
   }
 
   function handleButton(n) {
-    setCurrentPage(n);
+    //setCurrentPage(n)
+    //setSearchParam({ page: n });
+    setSearchParam((prevParams) => {
+      prevParams.set('page', n);
+      return prevParams;
+    });
   }
+
+  const currentPage = Number(searchParam.get('page') ?? 1);
 
   return (
     <div>
@@ -287,6 +322,7 @@ const Home = () => {
         handleInput={handleInput}
         handleSearch={handleSearch}
       />
+
       <Pagination
         handleNext={handleNext}
         handlePrev={handlePrev}
@@ -294,6 +330,7 @@ const Home = () => {
         currentPage={currentPage}
         numOfPages={totalPages}
       />
+
       <AddPlant
         handleAddPlant={handleAddPlant}
         handleNewPlant={handleNewPlant}
