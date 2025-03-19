@@ -8,16 +8,30 @@ import { FavContext } from './context/favContex';
 import Favourites from './Components/Favourites';
 import Header from './Components/Header';
 import Error from './Components/Error';
+import { ThemeContext } from './context/themeContext';
+import { Box } from '@mui/material';
 
 function AppLayout() {
   const [favCount, setFavCount] = useState(0);
   const [fav, setFav] = useState([]);
+  const [theme, setTheme] = useState('light');
+  console.log({ theme });
   return (
     <FavContext.Provider value={{ favCount, setFavCount, fav, setFav }}>
-      <div>
-        <Header />
-        <Outlet />
-      </div>
+      <ThemeContext.Provider value={{ theme, setTheme }}>
+        <Box
+          sx={{
+            minHeight: '100vh',
+            backgroundColor: theme === 'light' ? 'white' : 'black',
+            color: theme === 'light' ? '#000' : '#fff',
+          }}
+        >
+          <Header />
+          <main>
+            <Outlet />
+          </main>
+        </Box>
+      </ThemeContext.Provider>
     </FavContext.Provider>
   );
 }

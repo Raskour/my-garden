@@ -10,6 +10,8 @@ import AddPlant from './AddPlant';
 import { Button } from '@mui/material';
 import EditPlant from './EditPlant';
 import Pagination from './Pagination';
+import Theme from './Theme';
+import { ThemeContext } from '../context/themeContext';
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -19,6 +21,7 @@ const Home = () => {
   const [error, setError] = useState('');
   const [open, setOpen] = React.useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  //const [theme, setTheme] = useState('light');
   //const [currentPage, setCurrentPage] = useState(0)
   const [searchParam, setSearchParam] = useSearchParams();
   const [totalPages, setTotalPages] = useState(0);
@@ -36,6 +39,8 @@ const Home = () => {
   const [editPlant, setEditPlant] = useState(null);
 
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const { theme, setTheme } = useContext(ThemeContext);
+  console.log({ theme, setTheme });
 
   // const { setFavCount } = useContext(FavContext);
   // const { fav, setFav } = useContext(FavContext);
@@ -109,7 +114,7 @@ const Home = () => {
     setSearchParam((prevParams) => {
       prevParams.set('category', category);
       return prevParams;
-    }); // url query param update
+    }); // it will update the search param and useeffect reruns to send the api call with new query params
 
     // if (category === 'All') {
     //   setFilteredData(data);
@@ -311,11 +316,16 @@ const Home = () => {
     });
   }
 
+  function handleTheme() {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  }
+
   const currentPage = Number(searchParam.get('page') ?? 1);
 
   return (
     <div>
       <h1 className="heading">Ras Garden</h1>
+      <Theme theme={theme} handleTheme={handleTheme} />
 
       <SearchPlant
         input={input}
