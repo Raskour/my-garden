@@ -67,6 +67,26 @@ const AddPlant = ({
             fullWidth
           />
 
+          <TextField
+            type="text"
+            label="Water Requirement"
+            name="waterRequirements"
+            value={newPlant.waterRequirements}
+            onChange={handleNewPlant}
+            size="small"
+            fullWidth
+          />
+
+          <TextField
+            type="text"
+            label="Sunlight"
+            name="sunlight"
+            value={newPlant.sunlight}
+            onChange={handleNewPlant}
+            size="small"
+            fullWidth
+          />
+
           <div>
             <label>Category</label>
             <select

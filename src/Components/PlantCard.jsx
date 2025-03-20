@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import React from 'react';
 
 const PlantCard = ({ image, title, waterRequirements, sunlight }) => {
+  console.log({ waterRequirements, sunlight });
   return (
     <div className="plant-card">
       <img className="image" src={image} alt="" />
@@ -16,6 +17,7 @@ const PlantCard = ({ image, title, waterRequirements, sunlight }) => {
         <span className="title">{title}</span>
         <span>
           {waterReq[waterRequirements.toLowerCase()]}
+
           <small>{waterRequirements}</small>
         </span>
         <span>

@@ -34,13 +34,14 @@ const Home = () => {
     category: '',
     price: '',
     image: '',
+    sunlight: '',
+    waterRequirements: '',
   });
 
   const [editPlant, setEditPlant] = useState(null);
 
   const [selectedCategory, setSelectedCategory] = useState('All');
   const { theme, setTheme } = useContext(ThemeContext);
-  console.log({ theme, setTheme });
 
   // const { setFavCount } = useContext(FavContext);
   // const { fav, setFav } = useContext(FavContext);
@@ -135,7 +136,13 @@ const Home = () => {
 
   async function handleAddPlant(e) {
     e.preventDefault();
-    if (!newPlant.name || !newPlant.category || !newPlant.price) {
+    if (
+      !newPlant.name ||
+      !newPlant.category ||
+      !newPlant.price ||
+      !newPlant.sunlight ||
+      !newPlant.waterRequirements
+    ) {
       alert('Please type in all the required details');
       return;
     }
@@ -146,6 +153,8 @@ const Home = () => {
       category: newPlant.category,
       price: Number(newPlant.price),
       image: newPlant.image,
+      sunlight: newPlant.sunlight,
+      water_requirements: newPlant.waterRequirements,
     };
 
     const res = await fetch('http://localhost:8004/addPlant', {

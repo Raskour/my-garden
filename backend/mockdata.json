@@ -1,6 +1,24 @@
 {
   "plants": [
     {
+      "id": "0f92325c-2509-48ed-80d9-d4c82614540b",
+      "name": "MoonLight",
+      "category": "Indoor",
+      "price": 40,
+      "image": "https://www.thespruce.com/thmb/Qs4MqtAmgRa_4hxBmWVzBMUKtAY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/SPR-philodendron-moonlight-growing-guide-8348696-01-05b0c66521494927be38fff50cdccee5.jpg",
+      "sunlight": "Indirect light",
+      "water_requirements": "Once a week"
+    },
+    {
+      "id": "e60dfa28-2341-4162-a2cd-582af0c946dd",
+      "name": "Monstera",
+      "category": "Indoor",
+      "sunlight": "Indirect light",
+      "water_requirements": "Twice a week",
+      "price": 50,
+      "image": "https://www.marthastewart.com/thmb/-5Nx4-_mbzpZFjOO81BfHtm-yqs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/monstera-deliciosa-or-swiss-cheese-plant-in-a-white-flower-pot-stands-on-a-white-wood-table-1333227721-3ea9525b85474fdda7b6857a248c7c2b.jpg"
+    },
+    {
       "id": "28e81f77-5701-435c-beb3-70f6dfc23aec",
       "name": "Mint",
       "category": "Herbs",
@@ -105,8 +123,11 @@
       "scientific_name": "Ficus lyrata",
       "category": "Indoor",
       "type": "Tree",
-
-      "features": ["Large Leaves", "Decorative", "Air Purifying"],
+      "features": [
+        "Large Leaves",
+        "Decorative",
+        "Air Purifying"
+      ],
       "price": 30,
       "image": "https://www.naturescolours.com.au/wp-content/uploads/2019/04/Fiddle-Leaf-Fig-Ecopot-Blue-Grey-300mm-605x605.jpg",
       "water_requirements": "Once a week",
@@ -121,7 +142,11 @@
       "scientific_name": "Aloe barbadensis miller",
       "category": "Medicinal",
       "type": "Succulent",
-      "features": ["Healing Properties", "Easy to Grow", "Low Maintenance"],
+      "features": [
+        "Healing Properties",
+        "Easy to Grow",
+        "Low Maintenance"
+      ],
       "price": 15.5,
       "image": "https://www.kew.org/sites/default/files/styles/original/public/2020-04/Aloe_Vera.jpg.webp?itok=nuAtuuf1",
       "water_requirements": "Once in 2 weeks",
@@ -136,7 +161,11 @@
       "scientific_name": "Salvia rosmarinus",
       "category": "Herb",
       "type": "Perennial",
-      "features": ["Aromatic", "Culinary Use", "Medicinal"],
+      "features": [
+        "Aromatic",
+        "Culinary Use",
+        "Medicinal"
+      ],
       "price": 10.99,
       "image": "https://cdn.shopify.com/s/files/1/0849/0686/products/rosemary_1024x1024.jpeg?v=1434854989",
       "water_requirements": "Once a week",
@@ -151,7 +180,11 @@
       "scientific_name": "Chamaedorea seifrizii",
       "category": "Indoor",
       "type": "Palm",
-      "features": ["Air Purifying", "Pet-Friendly", "Low Maintenance"],
+      "features": [
+        "Air Purifying",
+        "Pet-Friendly",
+        "Low Maintenance"
+      ],
       "price": 30,
       "image": "https://theplantdistro.com.au/cdn/shop/files/chamaedorea-seifrizii-bamboo-palm-400mm-outdoor-342.webp?v=1710830810&width=493",
       "water_requirements": "Once a week",
