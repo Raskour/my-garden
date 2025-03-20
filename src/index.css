@@ -18,6 +18,10 @@ img {
   display: block;
 }
 
+main {
+  padding: 2rem;
+}
+
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -28,9 +32,10 @@ img {
 .plant-card {
   display: flex;
   flex-direction: column;
-  height: 300px;
+  height: 400px;
   width: 300px;
   border: 2px solid black;
+  text-align: center;
 }
 
 .add-new-plant {
@@ -46,21 +51,26 @@ img {
 }
 
 .image {
-  height: 80%;
+  height: 70%;
   width: 100%;
+}
+.heading {
+  display: flex;
+  justify-content: center;
 }
 
 .header {
   display: flex;
   justify-content: right;
-  margin-right: 80px;
-  margin-bottom: 60px;
+  padding: 2rem;
+  margin-right: 9rem;
   gap: 20px;
 }
 
 .category {
-  margin-left: 700px;
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+  padding: 2rem;
 }
 
 .searchbar {
@@ -108,6 +118,8 @@ img {
 
 .pagination {
   display: flex;
+  justify-content: flex-end;
+  padding: 3cap;
   gap: 1rem;
 }
 .pagination-num {
@@ -118,4 +130,9 @@ img {
 .buttons {
   display: flex;
   margin-left: 25rem;
+}
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 4rem;
 }

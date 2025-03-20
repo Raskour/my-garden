@@ -4,13 +4,17 @@
       "id": "28e81f77-5701-435c-beb3-70f6dfc23aec",
       "name": "Mint",
       "category": "Herbs",
+      "sunlight": "Full Sun",
       "price": 20,
+      "water_requirements": "Every other day",
       "image": "https://media.bunnings.com.au/api/public/content/1dc6bf0aaa364c4eb1542da294f11590?v=cbee1b3c"
     },
     {
       "id": "42dc3fc7-f2ff-4ab4-af5a-e1db80057ee7",
       "name": "Croton",
       "category": "Outdoor",
+      "water_requirements": "Twice a week",
+      "sunlight": "Bright indirect light",
       "price": 20,
       "image": "https://m.media-amazon.com/images/I/811C+xH5neL._AC_UF1000,1000_QL80_.jpg"
     },
@@ -18,6 +22,8 @@
       "id": "18a43298-354a-4a2c-84b2-d3887cc8450b",
       "name": "Oregano",
       "category": "Herbs",
+      "water_requirements": "Twice a week",
+      "sunlight": "Full Sun",
       "price": 8,
       "image": "https://static1.squarespace.com/static/5bbfbb9e523958e4f1427d15/5c6afcbcf4e1fcbaed904e2e/65cb63308a34b05259e1222d/1740409855666/IMG_9899.jpg?format=1500w"
     },
@@ -25,6 +31,8 @@
       "id": "154b3f2e-a7f8-4707-b35f-ec1eb0154a06",
       "name": "Duranta",
       "category": "Outdoor",
+      "water_requirements": "Everyday",
+      "sunlight": "Full Sun",
       "price": 15,
       "image": "https://www.australianplantsonline.com.au/media/catalog/product/d/u/duranta-squatters-gold-tubestock_1.jpg?optimize=medium&fit=bounds&height=720&width=720"
     },
@@ -32,6 +40,8 @@
       "id": "74943a52-d024-4707-a01d-46a66a352d39",
       "name": "Red Ruby",
       "category": "Outdoor",
+      "water_requirements": "Everyday",
+      "sunlight": "Full Sun",
       "price": 15,
       "image": "https://diacos.com.au/app/uploads/2018/07/PC050602.jpg"
     },
@@ -39,12 +49,16 @@
       "id": "24365857-eb60-4188-90f6-c652993b28e5",
       "name": "Spider Plant",
       "category": "Indoor",
+      "water_requirements": "Every other day",
+      "sunlight": "Bright indirect light",
       "price": 15,
       "image": "https://img.crocdn.co.uk/images/products2/pl/20/00/04/40/pl2000044095_card2_lg.jpg"
     },
     {
       "id": "a4427a66-954a-4dbc-ba4b-3cffa1aa367a",
       "name": "Chritmas Cactus",
+      "water_requirements": "Once a week",
+      "sunlight": "Bright indirect light",
       "category": "Indoor",
       "price": 15,
       "image": "https://cdn.mos.cms.futurecdn.net/dE6T2CqXMUBDs5yqtXa2TT-1280-80.jpg"
@@ -53,6 +67,8 @@
       "id": "defc45cc-c695-4f63-a1b0-16a7427668ef",
       "name": "Pothos",
       "category": "Indoor",
+      "water_requirements": "Twice a week",
+      "sunlight": "Indirect light",
       "price": 12,
       "image": "https://www.marthastewart.com/thmb/2rgzyjL7ZvSuEo78vb429jSEuR4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/ms-pothos-hero-marble-queen-getty-96ed7f63d8fe45edb99eceaaa83f886e.jpg"
     },
@@ -60,6 +76,8 @@
       "id": "cab01033-4fa7-47c9-a704-cfc0e790feba",
       "name": "Rubber Plant ",
       "category": "Indoor",
+      "water_requirements": "Once a week",
+      "sunlight": "Indirect light",
       "price": 40,
       "image": "https://theplantsociety.com.au/cdn/shop/products/ThePlantSociety_Ficuselastica_03.jpg?v=1685536819&width=751"
     },
@@ -67,6 +85,8 @@
       "id": "9baa28b3-e9f1-46de-90b7-6c7a4e551b5a",
       "name": "Snake plant",
       "category": "Indoor",
+      "water_requirements": "Once in 2 weeks",
+      "sunlight": "Indirect light",
       "price": 35,
       "image": "https://abeautifulmess.com/wp-content/uploads/2023/05/Snakeplant-1-730x730.jpg"
     },
@@ -74,6 +94,8 @@
       "id": "41ee9246-2e27-414e-8795-ba5ee38e0ab3",
       "name": "Cactus",
       "category": "Outdoor",
+      "water_requirements": "Once in 2 weeks",
+      "sunlight": "Bright indirect light",
       "price": 3,
       "image": "https://thepalmssydney.com.au/cdn/shop/files/TPNursery-616.jpg?v=1724824098"
     },
@@ -83,11 +105,12 @@
       "scientific_name": "Ficus lyrata",
       "category": "Indoor",
       "type": "Tree",
+
       "features": ["Large Leaves", "Decorative", "Air Purifying"],
       "price": 30,
       "image": "https://www.naturescolours.com.au/wp-content/uploads/2019/04/Fiddle-Leaf-Fig-Ecopot-Blue-Grey-300mm-605x605.jpg",
       "water_requirements": "Once a week",
-      "sunlight": "Bright, indirect light",
+      "sunlight": "Bright indirect light",
       "growth_rate": "Medium",
       "care_level": "Moderate",
       "origin": "Tropical West Africa"
@@ -101,8 +124,8 @@
       "features": ["Healing Properties", "Easy to Grow", "Low Maintenance"],
       "price": 15.5,
       "image": "https://www.kew.org/sites/default/files/styles/original/public/2020-04/Aloe_Vera.jpg.webp?itok=nuAtuuf1",
-      "water_requirements": "Every two weeks",
-      "sunlight": "Bright, indirect light",
+      "water_requirements": "Once in 2 weeks",
+      "sunlight": "Bright indirect light",
       "growth_rate": "Fast",
       "care_level": "Easy",
       "origin": "Arabian Peninsula"
@@ -131,7 +154,7 @@
       "features": ["Air Purifying", "Pet-Friendly", "Low Maintenance"],
       "price": 30,
       "image": "https://theplantdistro.com.au/cdn/shop/files/chamaedorea-seifrizii-bamboo-palm-400mm-outdoor-342.webp?v=1710830810&width=493",
-      "water_requirements": "Once every 5-7 days",
+      "water_requirements": "Once a week",
       "sunlight": "Indirect light",
       "growth_rate": "Slow",
       "care_level": "Moderate",

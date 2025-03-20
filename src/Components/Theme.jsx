@@ -1,7 +1,13 @@
 import React from 'react';
 
 const Theme = ({ handleTheme, theme }) => {
-  return <button onClick={handleTheme}>Toggle Theme</button>;
+  return (
+    <div className="button-container">
+      <button className="themeButton" onClick={handleTheme}>
+        Toggle Theme
+      </button>
+    </div>
+  );
 };
 
 export default Theme;

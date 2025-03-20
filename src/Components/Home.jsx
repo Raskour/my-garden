@@ -201,6 +201,13 @@ const Home = () => {
   async function handleRemoveButton(e, id) {
     e.preventDefault();
     e.stopPropagation();
+
+    const isConfirmed = window.confirm(
+      'Are you sure you want to delete the plant?'
+    );
+
+    if (!isConfirmed) return; // Stop execution if user cancels
+
     try {
       const res = await fetch(`http://localhost:8004/deletePlant/${id}`, {
         method: 'DELETE',
@@ -333,14 +340,6 @@ const Home = () => {
         handleSearch={handleSearch}
       />
 
-      <Pagination
-        handleNext={handleNext}
-        handlePrev={handlePrev}
-        handleButton={handleButton}
-        currentPage={currentPage}
-        numOfPages={totalPages}
-      />
-
       <AddPlant
         handleAddPlant={handleAddPlant}
         handleNewPlant={handleNewPlant}
@@ -374,11 +373,16 @@ const Home = () => {
           </Button>
 
           {filteredData.map((plant) => (
-            <Link to={'/plants/' + plant.id} key={plant.id}>
+            <Link
+              style={{ textDecoration: 'none' }}
+              to={'/plants/' + plant.id}
+              key={plant.id}
+            >
               <PlantCard
                 image={plant.image}
                 title={plant.name}
-                category={plant.category}
+                waterRequirements={plant.water_requirements}
+                sunlight={plant.sunlight}
               />
 
               <button onClick={(e) => handleFav(e, plant.id)}>
@@ -394,6 +398,14 @@ const Home = () => {
           ))}
         </div>
       )}
+
+      <Pagination
+        handleNext={handleNext}
+        handlePrev={handlePrev}
+        handleButton={handleButton}
+        currentPage={currentPage}
+        numOfPages={totalPages}
+      />
     </div>
   );
 };

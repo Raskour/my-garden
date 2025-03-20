@@ -27,7 +27,7 @@ function AppLayout() {
           }}
         >
           <Header />
-          <main>
+          <main className="main">
             <Outlet />
           </main>
         </Box>

@@ -2,8 +2,8 @@ import React from 'react';
 
 const CategorySearch = ({ selectedCategory, handleCategory }) => {
   return (
-    <div>
-      <form className="category">
+    <div className="category">
+      <form>
         <label>Category</label>
         <select value={selectedCategory} onChange={handleCategory}>
           <option value="All">All Plants</option>
