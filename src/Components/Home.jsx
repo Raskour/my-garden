@@ -12,7 +12,7 @@ import EditPlant from './EditPlant';
 import Pagination from './Pagination';
 import Theme from './Theme';
 import { ThemeContext } from '../context/themeContext';
-import DeleteAlert from './DeleteAlert';
+import DeletePlantDialog from './DeleteAlert';
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -41,6 +41,7 @@ const Home = () => {
   });
 
   const [editPlant, setEditPlant] = useState(null);
+  const [deletePlant, setDeletePlant] = useState(null);
 
   const [selectedCategory, setSelectedCategory] = useState('All');
   const { theme, setTheme } = useContext(ThemeContext);
@@ -209,7 +210,7 @@ const Home = () => {
     }
   }
 
-  async function handleRemoveButton(e, id) {
+  async function handleRemoveButton(e) {
     e.preventDefault();
     e.stopPropagation();
 
@@ -220,18 +221,22 @@ const Home = () => {
     // if (!isConfirmed) return; // Stop execution if user cancels
 
     try {
-      const res = await fetch(`http://localhost:8004/deletePlant/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json', // Add this line
-        },
-        body: JSON.stringify({ id }),
-      });
+      const res = await fetch(
+        `http://localhost:8004/deletePlant/${deletePlant.id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json', // Add this line
+          },
+        }
+      );
       if (!res.ok) {
         alert(res.error);
         return;
       }
-      const filteredPlants = data.filter((plant) => plant.id !== id);
+      const filteredPlants = data.filter(
+        (plant) => plant.id !== deletePlant.id
+      );
       setData(filteredPlants);
       setFilteredData(filteredPlants);
       setOpenDeleteModal(false);
@@ -288,13 +293,19 @@ const Home = () => {
   }
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  function handleClickOpen(e) {
+  function handleDeletePlant(e, plant) {
     e.preventDefault();
     e.stopPropagation();
     setOpenDeleteModal(true);
+    setDeletePlant(plant);
   }
 
-  const handleDeleteClose = () => setOpenDeleteModal(false);
+  function handleDeleteClose(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpenDeleteModal(false);
+    setDeletePlant(null);
+  }
   function handleEditClose() {
     setOpenEdit(false);
   }
@@ -379,6 +390,12 @@ const Home = () => {
         selectedCategory={selectedCategory}
         handleCategory={handleCategory}
       />
+      <DeletePlantDialog
+        handleRemoveButton={handleRemoveButton}
+        open={openDeleteModal}
+        handleClose={handleDeleteClose}
+        deletePlant={deletePlant}
+      />
 
       {error ? (
         <p style={{ color: 'red' }}>{error}</p>
@@ -408,12 +425,13 @@ const Home = () => {
               <button onClick={(e) => handleFav(e, plant.id)}>
                 Add to fav
               </button>
-              <DeleteAlert
-                handleClickOpen={handleClickOpen}
-                handleRemoveButton={handleRemoveButton}
-                open={openDeleteModal}
-                handleClose={handleDeleteClose}
-              />
+              <Button
+                variant="outlined"
+                onClick={(e) => handleDeletePlant(e, plant)}
+                size="small"
+              >
+                Delete plant
+              </Button>
 
               {/* <button onClick={(e) => handleRemoveButton(e, plant.id)}>
                 Delete plant

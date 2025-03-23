@@ -7,21 +7,18 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-const DeleteAlert = ({
+const DeletePlantDialog = ({
   handleRemoveButton,
   open,
   handleClose,
-  handleClickOpen,
+  deletePlant,
 }) => {
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Delete plant
-      </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete the plant
+            Are you sure you want to delete the plant {deletePlant.name}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -33,4 +30,4 @@ const DeleteAlert = ({
   );
 };
 
-export default DeleteAlert;
+export default DeletePlantDialog;

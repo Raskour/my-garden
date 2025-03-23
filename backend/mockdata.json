@@ -1,15 +1,6 @@
 {
   "plants": [
     {
-      "id": "cf71bb03-ad5a-4b09-b2e1-456cd474f13c",
-      "name": "mango",
-      "category": "Indoor",
-      "price": 40,
-      "image": "https://theplantsociety.com.au/cdn/shop/products/ThePlantSociety_Ficuselastica_03.jpg?v=1685536819&width=751",
-      "sunlight": "Full sun",
-      "water_requirements": "Once a week"
-    },
-    {
       "id": "e60dfa28-2341-4162-a2cd-582af0c946dd",
       "name": "Monstera",
       "category": "Indoor",
