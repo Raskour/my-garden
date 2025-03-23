@@ -18,7 +18,7 @@ const DeletePlantDialog = ({
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete the plant {deletePlant.name}
+            Are you sure you want to delete the plant {deletePlant?.name}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
