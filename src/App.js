@@ -15,7 +15,7 @@ function AppLayout() {
   const [favCount, setFavCount] = useState(0);
   const [fav, setFav] = useState([]);
   const [theme, setTheme] = useState('light');
-  console.log({ theme });
+
   return (
     <FavContext.Provider value={{ favCount, setFavCount, fav, setFav }}>
       <ThemeContext.Provider value={{ theme, setTheme }}>

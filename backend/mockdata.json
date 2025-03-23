@@ -1,12 +1,12 @@
 {
   "plants": [
     {
-      "id": "0f92325c-2509-48ed-80d9-d4c82614540b",
-      "name": "MoonLight",
+      "id": "cf71bb03-ad5a-4b09-b2e1-456cd474f13c",
+      "name": "mango",
       "category": "Indoor",
       "price": 40,
-      "image": "https://www.thespruce.com/thmb/Qs4MqtAmgRa_4hxBmWVzBMUKtAY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/SPR-philodendron-moonlight-growing-guide-8348696-01-05b0c66521494927be38fff50cdccee5.jpg",
-      "sunlight": "Indirect light",
+      "image": "https://theplantsociety.com.au/cdn/shop/products/ThePlantSociety_Ficuselastica_03.jpg?v=1685536819&width=751",
+      "sunlight": "Full sun",
       "water_requirements": "Once a week"
     },
     {

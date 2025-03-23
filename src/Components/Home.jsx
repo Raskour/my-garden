@@ -12,6 +12,7 @@ import EditPlant from './EditPlant';
 import Pagination from './Pagination';
 import Theme from './Theme';
 import { ThemeContext } from '../context/themeContext';
+import DeleteAlert from './DeleteAlert';
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -20,6 +21,7 @@ const Home = () => {
   const [input, setInput] = useState('');
   const [error, setError] = useState('');
   const [open, setOpen] = React.useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   //const [theme, setTheme] = useState('light');
   //const [currentPage, setCurrentPage] = useState(0)
@@ -211,11 +213,11 @@ const Home = () => {
     e.preventDefault();
     e.stopPropagation();
 
-    const isConfirmed = window.confirm(
-      'Are you sure you want to delete the plant?'
-    );
+    // const isConfirmed = window.confirm(
+    //   'Are you sure you want to delete the plant?'
+    // );
 
-    if (!isConfirmed) return; // Stop execution if user cancels
+    // if (!isConfirmed) return; // Stop execution if user cancels
 
     try {
       const res = await fetch(`http://localhost:8004/deletePlant/${id}`, {
@@ -232,6 +234,7 @@ const Home = () => {
       const filteredPlants = data.filter((plant) => plant.id !== id);
       setData(filteredPlants);
       setFilteredData(filteredPlants);
+      setOpenDeleteModal(false);
     } catch (err) {
       console.error('Error deleting the plant');
     }
@@ -285,6 +288,13 @@ const Home = () => {
   }
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  function handleClickOpen(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpenDeleteModal(true);
+  }
+
+  const handleDeleteClose = () => setOpenDeleteModal(false);
   function handleEditClose() {
     setOpenEdit(false);
   }
@@ -369,6 +379,7 @@ const Home = () => {
         selectedCategory={selectedCategory}
         handleCategory={handleCategory}
       />
+
       {error ? (
         <p style={{ color: 'red' }}>{error}</p>
       ) : (
@@ -397,9 +408,16 @@ const Home = () => {
               <button onClick={(e) => handleFav(e, plant.id)}>
                 Add to fav
               </button>
-              <button onClick={(e) => handleRemoveButton(e, plant.id)}>
+              <DeleteAlert
+                handleClickOpen={handleClickOpen}
+                handleRemoveButton={handleRemoveButton}
+                open={openDeleteModal}
+                handleClose={handleDeleteClose}
+              />
+
+              {/* <button onClick={(e) => handleRemoveButton(e, plant.id)}>
                 Delete plant
-              </button>
+              </button> */}
               <button onClick={(e) => handleEditOpen(e, plant)}>
                 Edit Plant
               </button>
