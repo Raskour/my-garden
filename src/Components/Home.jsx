@@ -7,12 +7,15 @@ import SearchPlant from './SearchPlant';
 import CategorySearch from './CategorySearch';
 import AddPlant from './AddPlant';
 // import { FavContext } from '../favContex';
-import { Button } from '@mui/material';
+import { Button, IconButton, Stack } from '@mui/material';
 import EditPlant from './EditPlant';
 import Pagination from './Pagination';
 import Theme from './Theme';
 import { ThemeContext } from '../context/themeContext';
 import DeletePlantDialog from './DeleteAlert';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -421,24 +424,37 @@ const Home = () => {
                 waterRequirements={plant.water_requirements}
                 sunlight={plant.sunlight}
               />
+              <Stack direction="row" gap={1} marginTop={1}>
+                <IconButton
+                  variant="outlined"
+                  size="small"
+                  onClick={(e) => handleFav(e, plant.id)}
+                >
+                  <FavoriteBorderIcon />
+                </IconButton>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={(e) => handleEditOpen(e, plant)}
+                  endIcon={<EditIcon />}
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={(e) => handleDeletePlant(e, plant)}
+                  size="small"
+                  color="error"
+                  endIcon={<DeleteOutlineIcon />}
+                  sx={{ marginLeft: 'auto' }}
+                >
+                  Delete
+                </Button>
 
-              <button onClick={(e) => handleFav(e, plant.id)}>
-                Add to fav
-              </button>
-              <Button
-                variant="outlined"
-                onClick={(e) => handleDeletePlant(e, plant)}
-                size="small"
-              >
-                Delete plant
-              </Button>
-
-              {/* <button onClick={(e) => handleRemoveButton(e, plant.id)}>
+                {/* <button onClick={(e) => handleRemoveButton(e, plant.id)}>
                 Delete plant
               </button> */}
-              <button onClick={(e) => handleEditOpen(e, plant)}>
-                Edit Plant
-              </button>
+              </Stack>
             </Link>
           ))}
         </div>

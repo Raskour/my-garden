@@ -4,6 +4,10 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
 } from '@mui/material';
 import React from 'react';
@@ -24,6 +28,7 @@ const EditPlant = ({
           paper: {
             component: 'form',
             onSubmit: handleUpdatePlant,
+            sx: { width: '600px' },
           },
         }}
       >
@@ -42,7 +47,6 @@ const EditPlant = ({
             label="Plant Name"
             value={editPlant.name}
             onChange={handleEditPlant}
-            size="small"
             fullWidth
           />
 
@@ -52,7 +56,6 @@ const EditPlant = ({
             label="Price"
             value={editPlant.price}
             onChange={handleEditPlant}
-            size="small"
             fullWidth
           />
 
@@ -66,26 +69,29 @@ const EditPlant = ({
             size="small"
             fullWidth
           />
-
-          <div>
-            <label>Category</label>
-            <select
+          <FormControl>
+            <InputLabel id="plantCat">Category</InputLabel>
+            <Select
+              id="plant-cat"
               name="category"
               value={editPlant.category}
               onChange={handleEditPlant}
+              label="Plant Category"
+              labelId="plantCat"
             >
-              <option>Please choose an option</option>
-              <option value="Indoor">Indoor Plants</option>
-              <option value="Outdoor">Outdoor Plants</option>
-              <option value="Herbs">Herbs</option>
-              <option value="Medicines">Medicinal Plants</option>
-            </select>
-            {/* <input
+              <MenuItem>Please choose an option</MenuItem>
+              <MenuItem value="Indoor">Indoor Plants</MenuItem>
+              <MenuItem value="Outdoor">Outdoor Plants</MenuItem>
+              <MenuItem value="Herbs">Herbs</MenuItem>
+              <MenuItem value="Medicines">Medicinal Plants</MenuItem>
+            </Select>
+          </FormControl>
+
+          {/* <input
               name="category"
               value={newPlant.category}
               onChange={handleNewPlant}
             ></input> */}
-          </div>
         </DialogContent>
 
         <DialogActions>
