@@ -3,6 +3,7 @@ const path = require('path'); // Import path module
 
 const mockDataPath = path.join(__dirname, 'mockdata.json'); // Correct path
 const favPlantPath = path.join(__dirname, 'favPlant.json'); // Correct path
+const loginPath = path.join(__dirname, 'userDetails.json');
 
 async function getPlants() {
   const data = await fs.readFile(mockDataPath, 'utf-8');
@@ -27,7 +28,7 @@ async function deleteFavPlant(id) {
   const data = await fs.readFile(favPlantPath, 'utf-8');
   const res = JSON.parse(data);
   const result = res.filter((plant) => plant.id !== id);
-  await fs.writeFile(favPlantPath, JSON.stringify(result, null, 2));
+  await fs.writeFile(favPlantPath, JSON.stringify(result));
 }
 
 async function addNewPlant(body) {
@@ -35,10 +36,7 @@ async function addNewPlant(body) {
   const plantData = JSON.parse(data);
   const newPlantData = [body, ...plantData.plants];
 
-  await fs.writeFile(
-    mockDataPath,
-    JSON.stringify({ plants: newPlantData }, null, 2)
-  );
+  await fs.writeFile(mockDataPath, JSON.stringify({ plants: newPlantData }));
 }
 
 async function deletePlant(id) {
@@ -62,7 +60,18 @@ async function editPlant(id, body) {
   }
 
   plantData.plants[plantIndex] = body;
-  await fs.writeFile(mockDataPath, JSON.stringify(plantData, null, 2));
+  await fs.writeFile(mockDataPath, JSON.stringify(plantData));
+}
+
+async function checkAuthentication(username, password) {
+  const data = await fs.readFile(loginPath, 'utf-8');
+  const userDetails = JSON.parse(data);
+
+  if (username === userDetails.username && password === userDetails.password) {
+    return true;
+  }
+
+  return false;
 }
 
 module.exports = {
@@ -73,4 +82,5 @@ module.exports = {
   addNewPlant,
   deletePlant,
   editPlant,
+  checkAuthentication,
 };

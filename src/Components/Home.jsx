@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 //import plantData from '../mockdata.json';
 import PlantCard from './PlantCard';
 // import { getPlants } from '../plantService';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import SearchPlant from './SearchPlant';
 import CategorySearch from './CategorySearch';
 import AddPlant from './AddPlant';
@@ -16,6 +16,7 @@ import DeletePlantDialog from './DeleteAlert';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
+import Authentication from './Authentication';
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -49,6 +50,8 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const { theme, setTheme } = useContext(ThemeContext);
 
+  const navigate = useNavigate();
+
   // const { setFavCount } = useContext(FavContext);
   // const { fav, setFav } = useContext(FavContext);
 
@@ -63,7 +66,8 @@ const Home = () => {
   useEffect(() => {
     async function getPlantData() {
       try {
-        const queryString = new URLSearchParams(searchParam).toString(); // 'page=0&category=Outdoor'
+        const queryString = new URLSearchParams(searchParam).toString(); // 'page=0&category=Outdoor',
+        //  converts the searchparams object(page=0&category=Outdoor) to string
 
         const data = await fetch(`http://localhost:8004/plants?${queryString}`);
         const { paginatedPlants, totalPages } = await data.json();
@@ -173,6 +177,7 @@ const Home = () => {
 
     if (!res.ok) {
       alert(res.error);
+      // throw new Error('Error adding plant');
       return;
     }
 
@@ -271,7 +276,7 @@ const Home = () => {
     const res = await fetch(`http://localhost:8004/editPlant/${editPlant.id}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json', // Add this line
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(plant),
     });
@@ -360,6 +365,10 @@ const Home = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   }
 
+  function handleLogout() {
+    navigate('/login');
+  }
+
   const currentPage = Number(searchParam.get('page') ?? 1);
 
   return (
@@ -372,6 +381,9 @@ const Home = () => {
         handleInput={handleInput}
         handleSearch={handleSearch}
       />
+      <Button variant="outlined" onClick={handleLogout}>
+        Logout
+      </Button>
 
       <AddPlant
         handleAddPlant={handleAddPlant}

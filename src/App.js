@@ -10,6 +10,7 @@ import Header from './Components/Header';
 import Error from './Components/Error';
 import { ThemeContext } from './context/themeContext';
 import { Box } from '@mui/material';
+import Authentication from './Components/Authentication';
 
 function AppLayout() {
   const [favCount, setFavCount] = useState(0);
@@ -55,6 +56,11 @@ const appRouter = createBrowserRouter([
       {
         path: '/fav',
         element: <Favourites />,
+        errorElement: <Error />,
+      },
+      {
+        path: '/login',
+        element: <Authentication />,
         errorElement: <Error />,
       },
     ],

@@ -12,6 +12,7 @@ const {
   addNewPlant,
   deletePlant,
   editPlant,
+  checkAuthentication,
 } = require('./plantService');
 const bodyParser = require('body-parser');
 
@@ -89,16 +90,27 @@ app.post('/favPlants', async (req, res) => {
   }
 });
 
-app.delete('/favPlants/:id', async (req, res) => {
-  const id = req.params.id;
-  await deleteFavPlant(id);
-  res.json({ message: 'Success' });
-});
-
 app.post('/addPlant', async (req, res) => {
   const body = req.body;
   await addNewPlant(body);
   res.json({ message: 'Plant has been added' });
+});
+
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  console.log({ username, password });
+  const result = await checkAuthentication(username, password);
+  if (result) {
+    res.json({ message: 'You are successfully Logged In' });
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
+  }
+});
+
+app.delete('/favPlants/:id', async (req, res) => {
+  const id = req.params.id;
+  await deleteFavPlant(id);
+  res.json({ message: 'Success' });
 });
 
 app.delete('/deletePlant/:id', async (req, res) => {
