@@ -31,7 +31,7 @@ app.get('/plants', async (req, res) => {
   const endIndex = startIndex + pageSize;
 
   const result = await getPlants();
-  let filteredPlants = result.plants;
+  let filteredPlants = result;
 
   if (category) {
     filteredPlants = filteredPlants.filter((p) => p.category === category);

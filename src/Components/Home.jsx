@@ -66,7 +66,7 @@ const Home = () => {
   useEffect(() => {
     async function getPlantData() {
       try {
-        const queryString = new URLSearchParams(searchParam).toString(); // 'page=0&category=Outdoor',
+        const queryString = new URLSearchParams(searchParam).toString(); // "page=0&category=Outdoor",
         //  converts the searchparams object(page=0&category=Outdoor) to string
 
         const data = await fetch(`http://localhost:8004/plants?${queryString}`);

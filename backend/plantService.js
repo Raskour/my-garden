@@ -1,19 +1,32 @@
 const fs = require('fs').promises;
-const path = require('path'); // Import path module
+const path = require('path');
+const pool = require('./db');
 
 const mockDataPath = path.join(__dirname, 'mockdata.json'); // Correct path
 const favPlantPath = path.join(__dirname, 'favPlant.json'); // Correct path
 const loginPath = path.join(__dirname, 'userDetails.json');
 
+// async function getPlants() {
+//   const data = await fs.readFile(mockDataPath, 'utf-8');
+//   return JSON.parse(data);
+// }
+
 async function getPlants() {
-  const data = await fs.readFile(mockDataPath, 'utf-8');
-  return JSON.parse(data);
+  const data = await pool.query('SELECT * FROM "all plants table"');
+  return data.rows;
 }
+// async function getPlantById(id) {
+//   const data = await fs.readFile(mockDataPath, 'utf-8');
+//   const res = JSON.parse(data);
+//   return res.plants.find((plant) => plant.id === id);
+// }
 
 async function getPlantById(id) {
-  const data = await fs.readFile(mockDataPath, 'utf-8');
-  const res = JSON.parse(data);
-  return res.plants.find((plant) => plant.id === id);
+  const data = await pool.query(
+    `SELECT * FROM "all plants table" where id=$1`,
+    [id]
+  );
+  return data.rows[0];
 }
 
 async function getFavPlants() {
