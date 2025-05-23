@@ -158,7 +158,9 @@ const Home = () => {
     }
 
     const plant = {
-      id: crypto.randomUUID(),
+      // id: crypto.randomUUID(),
+      // dont send the id if you are storing data
+      // in db, as the id is generated from the database
       name: newPlant.name,
       category: newPlant.category,
       price: Number(newPlant.price),
@@ -181,13 +183,17 @@ const Home = () => {
       return;
     }
 
-    // const result = await res.json();
+    const resData = await res.json(); // resData is {data:19}, to extract the id from it we do following
+    const savedPlantId = resData.id;
+
+    //const {id: savedPlantId} = await res.json() // this is another way of doing it, extract the id
+
     // alert(result.message);
 
-    const newData = [plant, ...data];
+    // const newData = [plant, ...data];
 
-    setData(newData);
-    setFilteredData(newData);
+    setData((prev) => [{ ...plant, id: savedPlantId }, ...prev]);
+    setFilteredData((prev) => [{ ...plant, id: savedPlantId }, ...prev]);
     setOpen(false);
   }
 
@@ -285,10 +291,13 @@ const Home = () => {
       alert(res.error);
       return;
     }
-    const result = await res.json(); //need this just to create result, otherwise dont need result as i am not storing it anywhere
-    const plantIndex = data.findIndex((plant) => plant.id === editPlant.id);
+    //const result = await res.json(); //need this just to create result, otherwise dont need result as i am not storing it anywhere
 
-    const newData = data.toSpliced(plantIndex, 1, plant);
+    const { updatedPlant } = await res.json();
+
+    const plantIndex = data.findIndex((plant) => plant.id === updatedPlant.id);
+
+    const newData = data.toSpliced(plantIndex, 1, updatedPlant);
 
     setData(newData);
     setFilteredData(newData);
@@ -296,7 +305,7 @@ const Home = () => {
 
     // optional, just to add the additional alert message that the plant has been added
     setTimeout(() => {
-      alert(result.message);
+      alert('Plant has been updated');
     }, 500);
   }
   const handleOpen = () => setOpen(true);

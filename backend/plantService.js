@@ -44,36 +44,76 @@ async function deleteFavPlant(id) {
   await fs.writeFile(favPlantPath, JSON.stringify(result));
 }
 
-async function addNewPlant(body) {
-  const data = await fs.readFile(mockDataPath, 'utf-8');
-  const plantData = JSON.parse(data);
-  const newPlantData = [body, ...plantData.plants];
+// async function addNewPlant(body) {
+//   const data = await fs.readFile(mockDataPath, 'utf-8');
+//   const plantData = JSON.parse(data);
+//   const newPlantData = [body, ...plantData.plants];
 
-  await fs.writeFile(mockDataPath, JSON.stringify({ plants: newPlantData }));
+//   await fs.writeFile(mockDataPath, JSON.stringify({ plants: newPlantData }));
+// }
+
+async function addNewPlant(body) {
+  const { name, category, sunlight, water_requirements, price, image } = body;
+  const result = await pool.query(
+    `INSERT INTO "all plants table"
+    (name,category,sunlight,water_requirements,price,image)
+    VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING *`,
+    [name, category, sunlight, water_requirements, price, image]
+  );
+
+  return result.rows[0];
 }
+
+// async function deletePlant(id) {
+//   const data = await fs.readFile(mockDataPath, 'utf-8');
+//   const plantData = JSON.parse(data);
+//   const newPlant = plantData.plants.filter((plant) => plant.id !== id);
+
+//   await fs.writeFile(
+//     mockDataPath,
+//     JSON.stringify({ plants: newPlant }, null, 2)
+//   );
+// }
 
 async function deletePlant(id) {
-  const data = await fs.readFile(mockDataPath, 'utf-8');
-  const plantData = JSON.parse(data);
-  const newPlant = plantData.plants.filter((plant) => plant.id !== id);
-
-  await fs.writeFile(
-    mockDataPath,
-    JSON.stringify({ plants: newPlant }, null, 2)
+  const result = await pool.query(
+    `DELETE FROM "all plants table" where id = $1 RETURNING *`,
+    [id]
   );
+
+  return result.rows[0];
 }
 
-async function editPlant(id, body) {
-  const data = await fs.readFile(mockDataPath, 'utf-8');
-  const plantData = JSON.parse(data);
-  const plantIndex = plantData.plants.findIndex((plant) => plant.id === id);
+// async function editPlant(id, body) {
+//   const data = await fs.readFile(mockDataPath, 'utf-8');
+//   const plantData = JSON.parse(data);
+//   const plantIndex = plantData.plants.findIndex((plant) => plant.id === id);
 
-  if (plantIndex === -1) {
+//   if (plantIndex === -1) {
+//     throw new Error('Plant with this ID not found');
+//   }
+
+//   plantData.plants[plantIndex] = body;
+//   await fs.writeFile(mockDataPath, JSON.stringify(plantData));
+// }
+
+async function editPlant(id, body) {
+  const { name, category, sunlight, water_requirements, price, image } = body;
+  const result = await pool.query(
+    `UPDATE "all plants table" SET name=$1, category = $2,
+         sunlight = $3,
+         water_requirements = $4,
+         price = $5,
+         image = $6 WHERE id= $7 RETURNING *`,
+    [name, category, sunlight, water_requirements, price, image, id]
+  );
+
+  if (result.rowCount === 0) {
     throw new Error('Plant with this ID not found');
   }
 
-  plantData.plants[plantIndex] = body;
-  await fs.writeFile(mockDataPath, JSON.stringify(plantData));
+  return result.rows[0];
 }
 
 async function checkAuthentication(username, password) {

@@ -92,8 +92,8 @@ app.post('/favPlants', async (req, res) => {
 
 app.post('/addPlant', async (req, res) => {
   const body = req.body;
-  await addNewPlant(body);
-  res.json({ message: 'Plant has been added' });
+  const result = await addNewPlant(body);
+  res.json({ id: result.id });
 });
 
 app.post('/login', async (req, res) => {
@@ -115,9 +115,10 @@ app.delete('/favPlants/:id', async (req, res) => {
 
 app.delete('/deletePlant/:id', async (req, res) => {
   const id = req.params.id;
+  //const {id} = req.params
   try {
-    await deletePlant(id);
-    res.json({ message: 'Plant has been deleted' });
+    const deltetedPlant = await deletePlant(id);
+    res.json({ message: 'Plant has been deleted', deltetedPlant });
   } catch (err) {
     res.json(err);
   }
@@ -127,8 +128,8 @@ app.put('/editPlant/:id', async (req, res) => {
   const id = req.params.id;
   const body = req.body;
 
-  await editPlant(id, body);
-  res.json({ message: 'Plant has been updated' });
+  const result = await editPlant(id, body);
+  res.json({ updatedPlant: result });
 });
 
 const PORT = 8004;
